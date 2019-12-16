@@ -34,7 +34,7 @@ dynamicLoadJs(jslist);
 var csslist = [csspath + "/fcolorpicker.css"]
 dynamicLoadCss(csslist);
 (function (window) {
-    var that;
+    // var that;
     var option = {
         showprecolor: true,//显示预制颜色
         prevcolors: [
@@ -55,19 +55,31 @@ dynamicLoadCss(csslist);
     }
 
     function FColorPicker(options) {
-        that = this;
+        // that = this;
         this.option = $.extend(true, {}, option, options);
+        if(typeof this.option.selector=='string'){
+            this.$el=$(this.option.selector);
+        }
+        else{
+            this.$el=$(this.option.selector)
+        }
         this.initCurrentColorBox();
         this.init();
     }
 
     FColorPicker.prototype = {
         initCurrentColorBox:function(){
+            var that=this;
             this.curcolordom = document.createElement("div");
             this.curcolordom.classList.add("fcolorpicker-curbox");
             this.curcolordom.style.background=this.option.color;
-            $(this.option.selector).append(this.curcolordom);
-            this.curcolordom.addEventListener("click",function(e){
+            this.$el.empty().append(this.curcolordom);
+            // console.log(this.curcolordom)
+            // this.$el[0].addEventListener("click",function(){
+            //
+            // })
+            this.curcolordom.onclick=function(e){
+                // console.log(e.target,that)
                 if($(that.dom).css("display")=="none"){
                     $(that.dom).fadeIn();
                 }
@@ -75,7 +87,8 @@ dynamicLoadCss(csslist);
                     $(that.dom).fadeOut();
                 }
                 that.setPosition()
-            })
+            }
+            // that.setPosition()
         },
         init: function () {
             this.initDom();
@@ -108,10 +121,10 @@ dynamicLoadCss(csslist);
                 </div>
             </div>
             <!--            <p>最近使用</p>-->
-            <div class="color-latest color-list">
+            <div class="color-latest fcolor-list">
             </div>
 <!--            <p>预置颜色</p>-->
-            <div class="color-recommend color-list">
+            <div class="color-recommend fcolor-list">
             </div>
 
             <div class="color-btns">
@@ -147,8 +160,10 @@ dynamicLoadCss(csslist);
             if(!this.option.showhistorycolor){
                 $(dom).find(".color-latest").hide();
             }
+            this.setPosition()
         },
         addPosEvent:function(){
+            var that=this;
             window.addEventListener("scroll",function(){
                 that.setPosition();
             })
@@ -163,19 +178,20 @@ dynamicLoadCss(csslist);
             }
             var wwidth=document.documentElement.clientWidth;
             var wheight=document.documentElement.clientHeight;
-            var top=this.curcolordom.getBoundingClientRect().top;
-            var left=this.curcolordom.getBoundingClientRect().left;
+            var curcolordom=this.$el[0].querySelector("div")
+            var top=curcolordom.getBoundingClientRect().top;
+            var left=curcolordom.getBoundingClientRect().left;
+            // console.log(this.curcolordom,top)
             var domwidth=$(this.dom).outerWidth();
             var domheight=$(this.dom).outerHeight();
-            console.log(left)
             if(wwidth-left<=domwidth){
                 left=left-domwidth-10;
             }
             else{
-                left=left+10+this.curcolordom.offsetWidth;
+                left=left+10+curcolordom.offsetWidth;
             }
             if(wheight-top<domheight){
-                top=top-domheight-this.curcolordom.offsetHeight;
+                top=top-domheight-curcolordom.offsetHeight;
             }
             else{
                 top=top
@@ -232,6 +248,7 @@ dynamicLoadCss(csslist);
         },
         addEvent: function () {
             var t = null;
+            var that=this;
             this.dom.querySelector(".current-color-value input").addEventListener("change", function (e) {
                 that.getColorFormat(that.dom.querySelector(".current-color-value input").value);
                 that.fillOpacity();
@@ -244,7 +261,7 @@ dynamicLoadCss(csslist);
                 left:0,
                 bartop:0
             }
-            document.addEventListener("mousedown", function (e) {
+            that.dom.addEventListener("mousedown", function (e) {
                 var $t = $(e.target);
                 if ($t.hasClass("color-item")) {
                     that.getColorFormat($t.attr("data-color"));
@@ -288,10 +305,12 @@ dynamicLoadCss(csslist);
                 startpos.x=e.clientX;
                 startpos.y=e.clientY;
                 that.changeColor(t, e,null);
+                that.option.onChange(that.color[that.option.format]);
             })
             this.dom.addEventListener("mousemove", function (e) {
                 // if ($(e.target).parents("." + t).length > 0) {
                     that.changeColor(t, e,startpos);
+                that.option.onChange(that.color[that.option.format]);
                 // }
             })
             document.addEventListener("mouseup", function (e) {
@@ -344,6 +363,7 @@ dynamicLoadCss(csslist);
                 this.fillOpacity();
                 this.fillPalette();
             }
+            this.setPosition()
             // console.log(color)
         },
         initColorBand: function () {
@@ -408,6 +428,9 @@ dynamicLoadCss(csslist);
             this.ctxlightness.fillRect(0, 0, width1, height1);
         },
         getColorFormat: function (color1) {
+            if(color1=='none'){
+                color1='rgba(0,0,0,0)'
+            }
             var color = {
                 "rgba": colorFormat({color: color1, format: "rgba"}).complete,
                 "hsla": colorFormat({color: color1, format: "hsla"}).complete,
