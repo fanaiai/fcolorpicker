@@ -1,8 +1,9 @@
 # fcolorpicker
 js colorpicker 颜色选择器
 
+![这里随便写文字](https://github.com/fanaiai/fcolorpicker/blob/master/1.png)
 
-#使用
+# 使用
 引用fcolorpicker.js后
 初始化实例
 
