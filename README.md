@@ -43,5 +43,5 @@ js colorpicker 颜色选择器
         show:true //初始化显示
 ## 方法
         getColor() //获取当前颜色
-        setColor() //设置当前颜色
+        setColor(color) //设置当前颜色
     
