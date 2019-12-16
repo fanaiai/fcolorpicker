@@ -113,9 +113,9 @@
     box-sizing: border-box;
 }
 .fcolorpicker .current-color{
-    flex: 0 0 26px;
-    height: 23px;
     border-radius: 2px;
+    flex: 0 0 10px;
+    height: 10px;
 }
 .current-color-value{
     border: 1px solid #ccc;
@@ -138,7 +138,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    flex: 0 0 77px;
+    flex: 0 0 94px;
 }
 .fcolorpicker .color-btn-group>a{
     display: inline-block;
@@ -147,10 +147,10 @@
     background: red;
     color: #fff;
     cursor: pointer;
-    width: 36px;
+    width: 45px;
     height: 24px;
     border-radius: 2px;
-    line-height: 23px;
+    line-height: 24px;
     padding: 0;
 }
 .fcolorpicker .color-btn-group .cancel-color{

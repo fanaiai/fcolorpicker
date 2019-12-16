@@ -52,11 +52,16 @@ dynamicLoadCss(csslist);
         historycolornum: 16,//历史条数
         format: 'hsla',//rgba hex hsla
         showPalette:true,//显示色盘
-        show:true //初始化显示
+        show:true, //初始化显示
+        lang:'cn'
     }
 
     function FColorPicker(options) {
         // that = this;
+        this.btns={
+            "cn":["取消","确定"],
+            "en":["Cancel","OK"],
+        }
         this.option = $.extend(true, {}, option, options);
         if(typeof this.option.selector=='string'){
             this.$el=$(this.option.selector);
@@ -145,8 +150,8 @@ dynamicLoadCss(csslist);
                     <input type="text">
                 </div>
                 <div class="color-btn-group">
-                    <a class="cancel-color">取消</a>
-                    <a class="confirm-color">确定</a>
+                    <a class="cancel-color">${this.btns[this.option.lang][0]}</a>
+                    <a class="confirm-color">${this.btns[this.option.lang][1]}</a>
                 </div>
             </div>
         </div>`
