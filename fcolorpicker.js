@@ -79,7 +79,7 @@ dynamicLoadCss(csslist);
             this.curcolordom.classList.add("fcolorpicker-curbox");
             this.curcolordom.style.background=this.option.color;
             this.$el.empty().append(this.curcolordom);
-            console.log("初始化")
+            // console.log("初始化")
             // console.log(this.curcolordom)
             // this.$el[0].addEventListener("click",function(){
             //
