@@ -8,7 +8,6 @@ function dynamicLoadJs(urllist) {
     for (let i = 0; i < urllist.length; i++) {
 
         let url = urllist[i];
-        console.log(url)
         var head = document.getElementsByTagName('head')[0];
         var link = document.createElement('script');
         link.src = url;
@@ -66,7 +65,6 @@ dynamicLoadCss(csslist);
             this.$el=$(this.option.selector)
         }
         this.initCurrentColorBox();
-        this.init();
     }
 
     FColorPicker.prototype = {
@@ -76,20 +74,31 @@ dynamicLoadCss(csslist);
             this.curcolordom.classList.add("fcolorpicker-curbox");
             this.curcolordom.style.background=this.option.color;
             this.$el.empty().append(this.curcolordom);
+            console.log("初始化")
             // console.log(this.curcolordom)
             // this.$el[0].addEventListener("click",function(){
             //
             // })
             this.curcolordom.onclick=function(e){
                 // console.log(e.target,that)
-                if($(that.dom).css("display")=="none"){
-                    $(that.dom).fadeIn();
+                if(that.dom){
+                    $(that.dom).remove();
+                    that.dom=null;
                 }
                 else{
-                    $(that.dom).fadeOut();
+                    that.init();
+                    that.setPosition()
+
                 }
-                that.setPosition()
+                // if($(that.dom).css("display")=="none"){
+                //     $(that.dom).fadeIn();
+                // }
+                // else{
+                //     $(that.dom).fadeOut();
+                // }
             }
+            if(this.option.show){
+            this.init();}
             // that.setPosition()
         },
         init: function () {
@@ -99,7 +108,8 @@ dynamicLoadCss(csslist);
             if(this.option.showPalette){
             this.initPalette();
             this.initColorBand();
-            this.initOpacity();}
+            this.initOpacity();
+            }
             else{
                 this.dom.querySelector(".color-palette").style.display='none'
             }
@@ -109,7 +119,7 @@ dynamicLoadCss(csslist);
             this.addPosEvent();
         },
         initDom: function () {
-            var dom = document.createElement("div");
+            // var dom = document.createElement("div");
             var html = `<div class="fcolorpicker">
             <div class="color-palette">
                 <div class="lightness">
@@ -140,9 +150,9 @@ dynamicLoadCss(csslist);
                 </div>
             </div>
         </div>`
-            $(dom).append(html);
-            this.dom=dom.querySelector(".fcolorpicker");
-            $("body").append(dom);
+            // $(dom).append(html);
+            this.dom=$(html)[0];
+            $("body").append(this.dom);
             this.canvasSize = {
                 width: $(this.dom.querySelector(".lightness")).width(),
                 height: $(this.dom.querySelector(".lightness")).height(),
@@ -150,12 +160,12 @@ dynamicLoadCss(csslist);
             this.lightbar = this.dom.querySelector(".lightbar");
             this.huebar = this.dom.querySelector(".huebar");
             this.opacitybar = this.dom.querySelector(".opacitybar");
-        if(this.option.show){
-            $(dom).show();
-        }
-        else{
-            $(dom).find(".fcolorpicker").hide();
-        }
+        // if(this.option.show){
+        //     $(dom).show();
+        // }
+        // else{
+        //     $(dom).find(".fcolorpicker").hide();
+        // }
         if(!this.option.showprecolor){
             $(dom).find(".color-recommend").hide();
         }
@@ -204,6 +214,7 @@ dynamicLoadCss(csslist);
             this.dom.style.top=top+"px";
             this.dom.style.left=left+"px";
         },
+
         addHistoryColors: function () {
             for (let i = 0; i < this.hiscolors.length; i++) {
                 if (colorFormat({color: this.hiscolors[i], format: "rgba"}).complete == this.color.rgba) {
@@ -278,6 +289,8 @@ dynamicLoadCss(csslist);
                     that.fillPalette();
                     that.option.onCancel(that.color[that.option.format]);
                     $(that.dom).fadeOut();
+                    $(that.dom).remove();
+                    that.dom=null;
                     return;
                 }
                 if ($t.hasClass("confirm-color")) {
@@ -285,6 +298,8 @@ dynamicLoadCss(csslist);
                     that.option.onConfirm(that.color[that.option.format]);
                     that.option.color=that.color[that.option.format];
                     $(that.dom).fadeOut();
+                    $(that.dom).remove();
+                    that.dom=null;
                     return;
                 }
                 t = null;
@@ -428,6 +443,13 @@ dynamicLoadCss(csslist);
             grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
             this.ctxlightness.fillStyle = grdBlack;
             this.ctxlightness.fillRect(0, 0, width1, height1);
+        },
+        setColor:function(color){
+            this.option.color=color;
+            this.getColorFormat(color)
+        },
+        getColor:function(color){
+            return this.color;
         },
         getColorFormat: function (color1) {
 
