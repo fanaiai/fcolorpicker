@@ -342,7 +342,6 @@ dynamicLoadCss(csslist);
                 case 'hue':
                         this.huebar.style.top = changeY + '%';
                         color = 'hsla(' + (changeY*360/100) + ',' + this.color.hslav[1] + '%,' + this.color.hslav[2] + '%,' + this.color.hslav[3] + ')';
-                        console.log(color,changeY,this.huebar)
                     break;
                 case 'lightness':
                     // console.log(x,y)
