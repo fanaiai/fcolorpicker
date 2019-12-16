@@ -6,6 +6,7 @@
 //! update date:2019/12/06
 function dynamicLoadJs(urllist) {
     for (let i = 0; i < urllist.length; i++) {
+        
         let url = urllist[i];
         console.log(url)
         var head = document.getElementsByTagName('head')[0];
