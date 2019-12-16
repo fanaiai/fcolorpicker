@@ -185,7 +185,7 @@ dynamicLoadCss(csslist);
         },
         setPosition:function(){
             // console.log(this.curcolordom.getBoundingClientRect(),document.documentElement.clientWidth,document.documentElement.clientHeight)
-            if($(this.dom).css("display")=='none'){
+            if(!this.dom){
                 return;
             }
             var wwidth=document.documentElement.clientWidth;
