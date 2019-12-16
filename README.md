@@ -5,21 +5,22 @@ js colorpicker 颜色选择器
 #使用
 引用fcolorpicker.js后
 初始化实例
-var fcolorpicker = new FColorPicker({
-        color: "red", selector: "#colorpicker",
-        onError: function (e) {
 
-        },
-        onCancel:function(color){
-            console.log("cancel",color)
-        },
-        onChange:function(color){
-            console.log("change",color)
-        },
-        onConfirm:function(color){
-            console.log("confirm",color)
-        }
-    })
+        var fcolorpicker = new FColorPicker({
+                color: "red", selector: "#colorpicker",
+                onError: function (e) {
+
+                },
+                onCancel:function(color){
+                    console.log("cancel",color)
+                },
+                onChange:function(color){
+                    console.log("change",color)
+                },
+                onConfirm:function(color){
+                    console.log("confirm",color)
+                }
+            })
     
 #配置参数
 showprecolor: true,//显示预制颜色
