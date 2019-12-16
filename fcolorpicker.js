@@ -342,6 +342,7 @@ dynamicLoadCss(csslist);
                 case 'hue':
                         this.huebar.style.top = changeY + '%';
                         color = 'hsla(' + (changeY*360/100) + ',' + this.color.hslav[1] + '%,' + this.color.hslav[2] + '%,' + this.color.hslav[3] + ')';
+                        console.log(color,changeY,this.huebar)
                     break;
                 case 'lightness':
                     // console.log(x,y)
@@ -430,6 +431,7 @@ dynamicLoadCss(csslist);
             this.ctxlightness.fillRect(0, 0, width1, height1);
         },
         getColorFormat: function (color1) {
+
             if(color1=='none'){
                 color1='rgba(0,0,0,0)'
             }
@@ -443,6 +445,8 @@ dynamicLoadCss(csslist);
                 return;
             }
             this.color = color;
+            // console.log(color)
+            // console.log(color1,colorFormat({color: 'hsla(133.95348837209303,0%,20%,1)', format: "hsla"}).complete)
             this.color.rgbav = this.color.rgba.slice(5, this.color.rgba.indexOf(')')).split(",")
             this.color.hslav = this.color.hsla.slice(5, this.color.hsla.indexOf(')')).split(",").map(function (ele) {
                 if (ele.indexOf("%") > -1) {
@@ -458,7 +462,8 @@ dynamicLoadCss(csslist);
         },
         setBarPos: function () {
             this.opacitybar.style.top = (1 - this.color.rgbav[3]) * 100 + "%";
-            this.huebar.style.top = (this.color.hslav[0]*100)/360 + "%";
+            if(this.color.hslav[1]!=0){
+            this.huebar.style.top = (this.color.hslav[0]*100)/360 + "%";}
         }
     }
     window.FColorPicker = FColorPicker;
