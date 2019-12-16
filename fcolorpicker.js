@@ -1,4 +1,5 @@
 //! FColorPicker.js
+//! https://github.com/fanaiai/fcolorpicker
 //! version : 1.0.0
 //! authors : 范媛媛
 //! create date:2019/05/14
