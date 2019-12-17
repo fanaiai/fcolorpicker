@@ -466,9 +466,13 @@ dynamicLoadCss(csslist);
                 "hsla": colorFormat({color: color1, format: "hsla"}).complete,
                 "hex": colorFormat({color: color1, format: "hex"}).complete,
             };
-            if ((!color.rgba || color.rgba.indexOf("NaN") > -1) && this.dom) {
+            if ((!color.rgba || color.rgba.indexOf("NaN") > -1) ) {
+                if(this.dom){
                 this.dom.querySelector(".current-color-value input").value = this.color[this.option.format];
-                return;
+                return;}
+                else{
+                    return;
+                }
             }
             this.color = color;
             // console.log(color)
