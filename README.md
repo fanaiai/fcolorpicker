@@ -5,7 +5,7 @@ js colorpicker 颜色选择器
 
 # 使用
 引用fcolorpicker.js后
-初始化实例
+## 初始化实例
 
         var fcolorpicker = new FColorPicker({
                 color: "red", selector: "#colorpicker",
@@ -23,7 +23,7 @@ js colorpicker 颜色选择器
                 }
             })
     
-#配置参数
+## 配置参数
 
         showprecolor: true,//显示预制颜色
         prevcolors: [
@@ -41,5 +41,7 @@ js colorpicker 颜色选择器
         format: 'hsla',//rgba hex hsla
         showPalette:true,//显示色盘
         show:true //初始化显示
-    
+## 方法
+        getColor() //获取当前颜色
+        setColor(color) //设置当前颜色
     
