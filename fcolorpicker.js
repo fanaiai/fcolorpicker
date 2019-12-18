@@ -338,6 +338,17 @@ dynamicLoadCss(csslist);
             document.addEventListener("mouseup", function (e) {
                 t = null;
             })
+            document.addEventListener("click", function (e) {
+                if($(e.target).parents(".fcolorpicker")[0]!=that.dom && $(e.target)[0] != that.curcolordom){
+                    that.getColorFormat(that.option.color);
+                    that.fillOpacity();
+                    that.fillPalette();
+                    that.option.onCancel(that.color[that.option.format]);
+                    $(that.dom).fadeOut();
+                    $(that.dom).remove();
+                    that.dom=null;
+                }
+            })
         },
         changeColor: function (t, e,startpos) {
             if (!t) {
