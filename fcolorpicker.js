@@ -339,7 +339,7 @@ dynamicLoadCss(csslist);
                 t = null;
             })
             document.addEventListener("click", function (e) {
-                if($(e.target).parents(".fcolorpicker")[0]!=that.dom && $(e.target)[0] != that.curcolordom){
+                if(e.target!=that.dom && $(e.target).parents(".fcolorpicker")[0]!=that.dom && $(e.target)[0] != that.curcolordom){
                     that.getColorFormat(that.option.color);
                     that.fillOpacity();
                     that.fillPalette();
@@ -387,7 +387,7 @@ dynamicLoadCss(csslist);
                     this.lightbar.style.left = x + 'px';
                     break;
                 case 'opacity':
-                    this.huebar.style.top = changeY + '%';
+                    this.opacitybar.style.top = changeY + '%';
                     color = 'rgba(' + this.color.rgbav[0] + ',' + this.color.rgbav[1] + ',' + this.color.rgbav[2] + ',' + (100-changeY)/100 + ')';
                     break;
             }
@@ -507,7 +507,7 @@ dynamicLoadCss(csslist);
         },
         setBarPos: function () {
             this.opacitybar.style.top = (1 - this.color.rgbav[3]) * 100 + "%";
-            if(this.color.hslav[1]!=0){
+            if(parseFloat(this.color.hslav[1])!=0){
             this.huebar.style.top = (this.color.hslav[0]*100)/360 + "%";}
         },
         $copy : function(text) {
