@@ -469,7 +469,7 @@ dynamicLoadCss(csslist);
         },
         getColorFormat: function (color1) {
 
-            if(color1=='none'){
+            if(color1.indexOf("rgb")<0 && color1.indexOf("#")<0 && color1.indexOf("hsl")<0){
                 color1='rgba(0,0,0,0)'
             }
             var color = {
