@@ -320,7 +320,7 @@ dynamicLoadCss(csslist);
                 }
                 if ($t.parents(".opacity").length > 0) {
                     t = 'opacity';
-                    var changeY=e.offsetY*100/that.canvasSize.height;
+                    var changeY=(e.offsetY*100/that.canvasSize.height);
                     that.opacitybar.style.top = changeY + '%';
                     startpos.bartop=parseFloat(that.opacitybar.style.top);
                 }
@@ -367,7 +367,7 @@ dynamicLoadCss(csslist);
             }
             }
             else{
-                changeY=e.offsetY*100/this.canvasSize.height;
+                changeY=(e.offsetY*100/this.canvasSize.height).toFixed(2);
             }
             switch (t) {
                 case 'hue':
@@ -387,6 +387,7 @@ dynamicLoadCss(csslist);
                     this.lightbar.style.left = x + 'px';
                     break;
                 case 'opacity':
+                    changeY=changeY>99.2?100:changeY
                     this.opacitybar.style.top = changeY + '%';
                     color = 'rgba(' + this.color.rgbav[0] + ',' + this.color.rgbav[1] + ',' + this.color.rgbav[2] + ',' + (100-changeY)/100 + ')';
                     break;
