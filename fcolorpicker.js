@@ -314,14 +314,14 @@ dynamicLoadCss(csslist);
                 if ($t.parents(".hue").length > 0) {
                     t = 'hue';
                     var changeY=e.offsetY*100/that.canvasSize.height;
-                    that.huebar.style.top = changeY + '%';
+                    that.huebar.style.top = changeY.toFixed(2) + '%';
                     startpos.bartop=parseFloat(that.huebar.style.top);
 
                 }
                 if ($t.parents(".opacity").length > 0) {
                     t = 'opacity';
                     var changeY=(e.offsetY*100/that.canvasSize.height);
-                    that.opacitybar.style.top = changeY + '%';
+                    that.opacitybar.style.top = changeY.toFixed(2) + '%';
                     startpos.bartop=parseFloat(that.opacitybar.style.top);
                 }
                 startpos.x=e.clientX;
@@ -331,14 +331,16 @@ dynamicLoadCss(csslist);
             })
             this.dom.addEventListener("mousemove", function (e) {
                 // if ($(e.target).parents("." + t).length > 0) {
+                if(t){
                     that.changeColor(t, e,startpos);
-                that.option.onChange(that.color[that.option.format]);
+                that.option.onChange(that.color[that.option.format]);}
                 // }
             })
-            document.addEventListener("mouseup", function (e) {
+            this.dom.addEventListener("mouseup", function (e) {
                 t = null;
             })
-            document.addEventListener("click", function (e) {
+            this.dom.addEventListener("click", function (e) {
+                e.stopPropagation();
                 if(e.target!=that.dom && $(e.target).parents(".fcolorpicker")[0]!=that.dom && $(e.target)[0] != that.curcolordom){
                     that.getColorFormat(that.option.color);
                     that.fillOpacity();
@@ -389,7 +391,7 @@ dynamicLoadCss(csslist);
                 case 'opacity':
                     changeY=changeY>99.2?100:changeY
                     this.opacitybar.style.top = changeY + '%';
-                    color = 'rgba(' + this.color.rgbav[0] + ',' + this.color.rgbav[1] + ',' + this.color.rgbav[2] + ',' + (100-changeY)/100 + ')';
+                    color = 'rgba(' + this.color.rgbav[0] + ',' + this.color.rgbav[1] + ',' + this.color.rgbav[2] + ',' + ((100-changeY)/100).toFixed(2) + ')';
                     break;
             }
             this.getColorFormat(color);
